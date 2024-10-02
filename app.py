@@ -14,11 +14,11 @@ st.title("氧化锌胶体粒径预测")
 st.sidebar.header('输入参数')
 
 def user_input_features():
-    CZn = st.sidebar.number_input('CZn (锌浓度)', min_value=0.0, max_value=10.0, value=1.0)
-    Calkali = st.sidebar.number_input('Calkali (碱浓度)', min_value=0.0, max_value=10.0, value=1.0)
-    Molar_ratio = st.sidebar.number_input('Molar_ratio (摩尔比)', min_value=0.0, max_value=10.0, value=1.0)
-    Temperature = st.sidebar.number_input('Temperature (温度)', min_value=0, max_value=100, value=25)
-    Time = st.sidebar.number_input('Time (时间)', min_value=0, max_value=100, value=10)
+    CZn = st.sidebar.number_input('CZn (mol/l)', min_value=0.0, max_value=10.0, value=0.0)
+    Calkali = st.sidebar.number_input('Calkali (mol/l)', min_value=0.0, max_value=10.0, value=0.0)
+    Molar_ratio = st.sidebar.number_input('Molar_ratio (摩尔比)', min_value=0.0, max_value=10.0, value=0.0)
+    Temperature = st.sidebar.number_input('Temperature (K)', min_value=0, max_value=100, value=25)
+    Time = st.sidebar.number_input('Time (min)', min_value=0, max_value=800, value=10)
     
     data = {
         'CZn': CZn,
