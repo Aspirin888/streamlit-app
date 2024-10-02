@@ -2,40 +2,45 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# 加载模型
+# 加载GBR模型
 @st.cache(allow_output_mutation=True)
 def load_model():
     return joblib.load('gbr_model.pkl')
 
 # 应用标题
-st.title("GBR 模型预测应用")
+st.title("氧化锌胶体粒径预测")
 
 # 输入参数
 st.sidebar.header('输入参数')
 
 def user_input_features():
-    feature1 = st.sidebar.number_input('特征 1')
-    feature2 = st.sidebar.number_input('特征 2')
-    # 添加更多特征...
+    CZn = st.sidebar.number_input('CZn (锌浓度)', min_value=0.0, max_value=10.0, value=1.0)
+    Calkali = st.sidebar.number_input('Calkali (碱浓度)', min_value=0.0, max_value=10.0, value=1.0)
+    Molar_ratio = st.sidebar.number_input('Molar_ratio (摩尔比)', min_value=0.0, max_value=10.0, value=1.0)
+    Temperature = st.sidebar.number_input('Temperature (温度)', min_value=0, max_value=100, value=25)
+    Time = st.sidebar.number_input('Time (时间)', min_value=0, max_value=100, value=10)
     
     data = {
-        'feature1': feature1,
-        'feature2': feature2,
-        # 添加更多特征...
+        'CZn': CZn,
+        'Calkali': Calkali,
+        'Molar_ratio': Molar_ratio,
+        'Temperature': Temperature,
+        'Time': Time
     }
     features = pd.DataFrame(data, index=[0])
     return features
 
-df = user_input_features()
+# 获取输入数据
+input_df = user_input_features()
 
-# 显示输入参数
+# 显示输入的参数
 st.subheader('输入的参数')
-st.write(df)
+st.write(input_df)
 
 # 加载模型并进行预测
 model = load_model()
-prediction = model.predict(df)
+prediction = model.predict(input_df)
 
 # 显示预测结果
-st.subheader('预测结果')
+st.subheader('预测的Average_size (平均粒径)')
 st.write(prediction)
